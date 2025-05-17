@@ -7,8 +7,8 @@ export default defineConfig({
    build: {
     lib: {
       entry: 'src/index.tsx',
-      name: 'MyReactLib',
-      fileName: (format) => `my-react-lib.${format}.js`,
+      name: 'WithCustomCursor',
+      fileName: (format) => `with-custom-cursor.${format}.js`,
       formats: ['es', 'umd'],
     },
     rollupOptions: {
