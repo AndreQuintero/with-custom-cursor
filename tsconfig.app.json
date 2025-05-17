@@ -9,7 +9,7 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    //"allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "jsx": "react-jsx",
@@ -24,9 +24,8 @@
 
     /* Build */
     "noEmit": false,
-    "emitDeclarationOnly": true,
     "declaration": true,
-    "declarationDir": "./dist",
+    "declarationDir": "./dist"
   },
   "include": ["src"]
 }
