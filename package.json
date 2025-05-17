@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -44,9 +44,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/with-custom-cursor.git"
+    "url": "https://github.com/AndreQuintero/with-custom-cursor.git"
   },
-  "author": "Your Name <your.email@example.com>",
+  "author": "Andre Quintero dos Santos <andre.quintero96@gmail.com>",
   "license": "MIT",
   "keywords": [
     "react",
