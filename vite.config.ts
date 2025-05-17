@@ -1,16 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import dts from 'vite-plugin-dts'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), dts()],
    build: {
     lib: {
       entry: 'src/index.tsx',
       name: 'WithCustomCursor',
-      fileName: (format) => `with-custom-cursor.${format}.js`,
+      fileName: (format) => `index.${format}.js`,
       formats: ['es', 'umd'],
     },
+    cssCodeSplit: true,
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
