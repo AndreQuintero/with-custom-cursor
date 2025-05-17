@@ -3,13 +3,13 @@ import styles from "./index.module.css"
 
 export type WithCustomCursorProps = {
     onMouseMove: (e: MouseEvent<HTMLDivElement>) => void
-    CursorComponent:  ForwardRefExoticComponent<React.HTMLAttributes<HTMLElement> & RefAttributes<HTMLElement>>
 }
 
 export const WithCustomCursor = <P extends WithCustomCursorProps>(
-    WrappedComponent: ComponentType<P>
+    WrappedComponent: ComponentType<P>,
+    CursorComponent: ForwardRefExoticComponent<React.HTMLAttributes<HTMLElement> & RefAttributes<HTMLElement>>
   ) => {
-    return function CustomCursor({ CursorComponent, ...props }: WithCustomCursorProps) {
+    return function CustomCursor({ ...props }: WithCustomCursorProps) {
       const cursor = useRef<HTMLDivElement>(null)
   
       const mouseMove = (e: MouseEvent<HTMLDivElement>) => {
