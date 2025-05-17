@@ -1,5 +1,5 @@
 import { useRef, type ComponentType, type ForwardRefExoticComponent, type MouseEvent, type RefAttributes } from "react"
-import styles from "./styles.module.css"
+import styles from "./index.module.css"
 
 export type WithCustomCursorProps = {
     onMouseMove: (e: MouseEvent<HTMLDivElement>) => void
