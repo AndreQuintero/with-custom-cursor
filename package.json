@@ -1,7 +1,7 @@
 {
   "name": "with-custom-cursor",
   "private": false,
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
