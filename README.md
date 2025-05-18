@@ -1,54 +1,94 @@
-# React + TypeScript + Vite
+# with-custom-cursor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Higher-Order Component (HOC) library for React that enables you to easily add a custom cursor to any component.
 
-Currently, two official plugins are available:
+## Features
+- Wrap any component with a custom cursor that follows mouse movement.
+- Fully typed with TypeScript.
+- Easy integration and customization.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install with-custom-cursor
+# or
+yarn add with-custom-cursor
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Usage
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. Create Your Custom Cursor Component
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```tsx
+import { type RefObject } from "react"
+
+type CursorProps = {
+    ref: RefObject<HTMLDivElement>
+}
+export const Cursor = ({ ref }: CursorProps) => {
+    return (
+        <div className="cursor" ref={ref}>
+            <label>see more</label>
+        </div>
+    )
+}
 ```
+### 2. Styling
+
+```css
+.cursor {
+    width: 16rem;
+    height: 16rem;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 9;
+    display: flex;
+}
+
+.cursor label {
+  color: #252525;    
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+```
+
+### 3. Wrap Your Component
+
+```tsx
+import { WithCustomCursor } from "with-custom-cursor"
+import { Cursor } from "./cursor"
+
+const Card = () => {
+    return (
+        <div className="card">
+            <h1>Card</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
+        </div>
+    )
+}
+
+export const CardWithCursor = WithCustomCursor(Card, Cursor)
+```
+
+## API
+
+### `WithCustomCursor(WrappedComponent, CursorComponent)`
+- `WrappedComponent`: The component you want to enhance with a custom cursor.
+- `CursorComponent`: The cursor component (must accept a `ref` prop).
+
+Returns a new component that renders your cursor and the wrapped component.
+
+## Example
+
+TODO: add example
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+MIT © Andre Quintero dos Santos
