@@ -3,7 +3,7 @@ import styles from "./index.module.css"
 
 export const WithCustomCursor = <P extends object, T extends HTMLElement = HTMLElement>(
     WrappedComponent: ComponentType<P>,
-    CursorComponent: ComponentType<{ ref: RefObject<T | null> }>
+    CursorComponent: ComponentType<{ ref: RefObject<T> }>
   ) => {
     return function CustomCursor(props: P) {
       const cursor = useRef<T>(null)
@@ -42,7 +42,7 @@ export const WithCustomCursor = <P extends object, T extends HTMLElement = HTMLE
           onMouseLeave={() => setIsCursorvisible(false)}
         >
             <div className={styles.cursor} style={{ opacity: isCursorVisible ? 1 : 0, pointerEvents: 'none' }}>
-                <CursorComponent ref={cursor} />
+                <CursorComponent ref={cursor as RefObject<T>} />
             </div>
             <div onMouseMove={mouseMove} style={{ cursor: 'none' }}>
               <WrappedComponent {...(props as P) } />
