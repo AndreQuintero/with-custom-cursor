@@ -1,14 +1,15 @@
 {
   "name": "with-custom-cursor",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "test": "echo 'test completed'",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "semantic-release": "semantic-release --branches main"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -26,7 +27,8 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "semantic-release": "^24.2.4"
   },
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
