@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "echo 'test completed'",
     "lint": "eslint .",
     "preview": "vite preview",
     "semantic-release": "semantic-release --branches main",
