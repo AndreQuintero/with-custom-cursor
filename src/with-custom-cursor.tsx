@@ -44,7 +44,7 @@ export const WithCustomCursor = <P extends object, T extends HTMLElement = HTMLE
             <div className={styles.cursor} style={{ opacity: isCursorVisible ? 1 : 0, pointerEvents: 'none' }}>
                 <CursorComponent ref={cursor} />
             </div>
-            <div onMouseMove={mouseMove}>
+            <div onMouseMove={mouseMove} style={{ cursor: 'none' }}>
               <WrappedComponent {...(props as P) } />
             </div> 
         </div>
