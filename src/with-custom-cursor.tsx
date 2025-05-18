@@ -1,17 +1,18 @@
-import { useRef, type ComponentType, type ForwardRefExoticComponent, type MouseEvent, type RefAttributes } from "react"
+import { useRef, useState, type ComponentType, type MouseEvent, type RefObject } from "react"
 import styles from "./index.module.css"
 
 export type WithCustomCursorProps = {
     onMouseMove: (e: MouseEvent<HTMLDivElement>) => void
 }
 
-export const WithCustomCursor = <P extends WithCustomCursorProps>(
-    WrappedComponent: ComponentType<P>,
-    CursorComponent: ForwardRefExoticComponent<React.HTMLAttributes<HTMLElement> & RefAttributes<HTMLElement>>
+export const WithCustomCursor = <P extends object, T extends HTMLElement = HTMLElement>(
+    WrappedComponent: ComponentType<P & WithCustomCursorProps>,
+    CursorComponent: ComponentType<{ ref: RefObject<T | null> }>
   ) => {
-    return function CustomCursor({ ...props }: WithCustomCursorProps) {
-      const cursor = useRef<HTMLDivElement>(null)
-  
+    return function CustomCursor(props: P) {
+      const cursor = useRef<T>(null)
+      const [ isCursorVisible, setIsCursorvisible ] = useState(false)
+
       const mouseMove = (e: MouseEvent<HTMLDivElement>) => {
         const rect = e.currentTarget.getBoundingClientRect()
         const axisX = e.clientX - rect.left
@@ -40,11 +41,14 @@ export const WithCustomCursor = <P extends WithCustomCursorProps>(
       }
   
       return (
-        <div className={styles.wrapper}>
-            <div className={styles.cursor}>
+        <div className={styles.wrapper} 
+          onMouseEnter={() => setIsCursorvisible(true)}
+          onMouseLeave={() => setIsCursorvisible(false)}
+        >
+            <div className={styles.cursor} style={{ opacity: isCursorVisible ? 1 : 0, pointerEvents: 'none' }}>
                 <CursorComponent ref={cursor} />
             </div>
-            <WrappedComponent {...(props as P)} onMouseMove={mouseMove} />
+            <WrappedComponent {...(props as P) } onMouseMove={mouseMove} />
         </div>
       )
     }
