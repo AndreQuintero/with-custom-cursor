@@ -1,8 +1,8 @@
-![with-custom-cursor logo](with-custom-cursor.png)
-
 # with-custom-cursor
 
 A Higher-Order Component (HOC) library for React that enables you to easily add a custom cursor to any component.
+
+![with-custom-cursor logo](with-custom-cursor.png)
 
 ## Features
 - Wrap any component with a custom cursor that follows mouse movement.
