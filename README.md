@@ -86,10 +86,12 @@ Returns a new component that renders your cursor and the wrapped component.
 
 ## Example
 
-TODO: add example
+<img src="cursor-min.gif" alt="Custom Cursor Example" style="width:50%;max-width:320px;min-width:160px;" />
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request.
+
+A special thanks to my friend Gabriel Chelles!
 
 ## License
 
