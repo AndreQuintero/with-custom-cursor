@@ -1,13 +1,27 @@
 import { useRef, useState, type ComponentType, type MouseEvent, type RefObject } from "react"
 import styles from "./index.module.css"
 
+// Helper type to create better error messages
+type RequireRef<T extends HTMLElement> = {
+  /**
+   * The cursor component must accept a 'ref' prop of type RefObject<HTMLElement>.
+   * This ref is automatically provided by WithCustomCursor - you don't need to pass it manually.
+   * 
+   * Example:
+   * const Cursor = ({ label, ref }: { label: string; ref: RefObject<HTMLDivElement> }) => (
+   *   <div ref={ref}>{label}</div>
+   * )
+   */
+  ref: RefObject<T>
+}
+
 export const WithCustomCursor = <
   P extends object,
   T extends HTMLElement = HTMLElement,
-  CursorProps extends Record<string, unknown> = Record<string, unknown>
+  CursorProps extends RequireRef<T> = RequireRef<T>
 >(
   WrappedComponent: ComponentType<P>,
-  CursorComponent: ComponentType<{ ref: RefObject<T> } & CursorProps>
+  CursorComponent: ComponentType<CursorProps>
   ) => {
      // Exclude 'ref' from CursorProps since the library handles it internally
     type PublicCursorProps = Omit<CursorProps, 'ref'>
@@ -47,8 +61,8 @@ export const WithCustomCursor = <
       // only the cursor props and wrapped props can be passed ahead
       const cursorPropsWithRef = {
         ref: cursor,
-        ...(props as Omit<CursorProps, 'ref'>)
-      } as unknown as { ref: RefObject<T> } & CursorProps
+        ...(props as PublicCursorProps),
+      } as CursorProps
   
 
       return (
