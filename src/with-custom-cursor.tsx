@@ -1,11 +1,18 @@
 import { useRef, useState, type ComponentType, type MouseEvent, type RefObject } from "react"
 import styles from "./index.module.css"
 
-export const WithCustomCursor = <P extends object, T extends HTMLElement = HTMLElement>(
-    WrappedComponent: ComponentType<P>,
-    CursorComponent: ComponentType<{ ref: RefObject<T> }>
+export const WithCustomCursor = <
+  P extends object,
+  T extends HTMLElement = HTMLElement,
+  CursorProps extends Record<string, unknown> = Record<string, unknown>
+>(
+  WrappedComponent: ComponentType<P>,
+  CursorComponent: ComponentType<{ ref: RefObject<T> } & CursorProps>
   ) => {
-    return function CustomCursor(props: P) {
+     // Exclude 'ref' from CursorProps since the library handles it internally
+    type PublicCursorProps = Omit<CursorProps, 'ref'>
+
+    return function CustomCursor(props: P & PublicCursorProps) {
       const cursor = useRef<T>(null)
       const [ isCursorVisible, setIsCursorvisible ] = useState(false)
 
@@ -36,16 +43,24 @@ export const WithCustomCursor = <P extends object, T extends HTMLElement = HTMLE
         return { x, y }
       }
   
+      // Create cursor props object with ref ommited to the parent component, 
+      // only the cursor props and wrapped props can be passed ahead
+      const cursorPropsWithRef = {
+        ref: cursor,
+        ...(props as Omit<CursorProps, 'ref'>)
+      } as unknown as { ref: RefObject<T> } & CursorProps
+  
+
       return (
         <div className={styles.wrapper} 
           onMouseEnter={() => setIsCursorvisible(true)}
           onMouseLeave={() => setIsCursorvisible(false)}
         >
             <div className={styles.cursor} style={{ opacity: isCursorVisible ? 1 : 0, pointerEvents: 'none' }}>
-                <CursorComponent ref={cursor as RefObject<T>} />
+              <CursorComponent {...cursorPropsWithRef} />
             </div>
             <div onMouseMove={mouseMove} style={{ cursor: 'none' }}>
-              <WrappedComponent {...(props as P) } />
+              <WrappedComponent {...(props as P)} />
             </div> 
         </div>
       )
